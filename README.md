@@ -19,4 +19,4 @@ $ php index.php
 
 ### This project using the library Ratchet
 
-Acess docs in http://socketo.me/docs/
+Access docs in http://socketo.me/docs/
