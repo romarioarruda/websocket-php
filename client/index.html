@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente chat</title>
+</head>
+<body>
+    <input type="text" />
+    <br>
+    <br>
+    <output></output>
+
+    <script>
+        const ws = new WebSocket('ws://localhost:8081/');
+        const input = document.querySelector('input');
+        const output = document.querySelector('output');
+
+        ws.addEventListener('message', message => {
+            const data = JSON.parse(message.data);
+
+            if (data.type === 'chat') {
+                output.append(`Outro: ${data.text}`, document.createElement('br'));
+            } else {
+                alert(data);
+            }
+        });
+
+        input.addEventListener('keypress', e => {
+            if (e.code !== 'Enter') {
+                return;
+            }
+
+            output.append(`Eu: ${input.value}`, document.createElement('br'));
+            ws.send(input.value);
+            input.value = '';
+        });
+    </script>
+</body>
+</html>
